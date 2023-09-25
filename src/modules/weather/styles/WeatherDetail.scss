@@ -1,0 +1,41 @@
+.weather-detail__background {
+  border-radius: 40px;
+}
+
+.weather-detail__wrapper {
+  position: absolute;
+  left: 0;
+  top: 100px;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  color: #fff;
+}
+
+.weather-detail {
+  width: fit-content;
+  height: fit-content;
+  margin: auto;
+  position: relative;
+}
+
+.weather-detail__weather {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.weather-detail__weather-name {
+  font-size: 34px;
+}
+
+.weather-detail__weather-temperature {
+  font-size: 96px;
+  line-height: 80px;
+}
+
+.weather-detail__weather-more {
+  margin-top: 12px;
+  font-size: 20px;
+}
