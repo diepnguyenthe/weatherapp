@@ -45,6 +45,17 @@ const Search = () => {
       });
     }
   };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevents the default action (e.g., form submission)
+      handleEnter();
+    }
+  };
+
+  const handleEnter = () => {
+    submit();
+  };
   return (
     <div className="search">
       <div className="search-wrapper">
@@ -53,6 +64,7 @@ const Search = () => {
           value={input}
           placeholder="Search for city"
           onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyPress}
         />
         <button onClick={() => submit()}>
           <Icons name={"search"} />
