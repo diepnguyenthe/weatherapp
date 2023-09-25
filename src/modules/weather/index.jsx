@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import WeatherDetail from "./components/WeatherDetail";
 const locationList = [
   {
-    id: 0,
+    id: 1581130,
     text: "Hà Nội",
     value: {
       lat: 21.028511,
@@ -11,7 +11,7 @@ const locationList = [
     },
   },
   {
-    id: 1,
+    id: 1566083,
     text: "TP.Hồ Chí Minh",
     value: {
       lat: 10.762622,
@@ -19,7 +19,7 @@ const locationList = [
     },
   },
   {
-    id: 2,
+    id: 1580240,
     text: "Huế",
     value: {
       lat: 16.463713,
@@ -29,17 +29,19 @@ const locationList = [
 ];
 
 const WeatherModule = () => {
-  const weather = useSelector((state) => state.weather.weather);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({
       type: "FETCH_WEATHER",
-      location: locationList[0].value,
+      payload: {
+        id: locationList[0].id,
+      },
     });
   }, []);
+
   return (
     <div className="container">
-      <WeatherDetail currentWeather={weather} />
+      <WeatherDetail />
     </div>
   );
 };

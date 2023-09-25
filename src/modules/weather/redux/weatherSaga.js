@@ -4,9 +4,8 @@ import { weatherActions } from "./weatherSlice";
 
 function* handleFetchWeather(action) {
   try {
-    weatherActions.weatherFetchAction();
-    console.log(action);
-    const res = yield call(weatherApi.fetchWeather, action.location);
+    yield put(weatherActions.weatherFetchAction());
+    const res = yield call(weatherApi.fetchWeather, action.payload);
     yield put(weatherActions.weatherFetchSuccess(res.data));
   } catch (error) {
     yield put(weatherActions.weatherFetchError());
