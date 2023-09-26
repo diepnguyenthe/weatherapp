@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "../../../assets/Image.png";
 
 import "swiper/css";
@@ -6,12 +6,28 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Icons from "../../../components/Icons";
 import WeatherForecastItem from "./WeatherForecastItem";
 import Search from "./Search";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Alert } from "@mui/material";
+import { weatherActions } from "../redux/weatherSlice";
 
 const WeatherDetail = () => {
+  const dispatch = useDispatch();
   const loading = useSelector((state) => state.weather.isLoading);
-  const weatherList = useSelector((state) => state.weather.weather);
+  const weatherList = useSelector((state) => state.weather.forecasts);
   const currentWeather = useSelector((state) => state.weather.currentWeather);
+  const error = useSelector((state) => state.weather.error);
+  let timeoutId;
+
+  useEffect(() => {
+    if (error != "") {
+      timeoutId = setTimeout(() => {
+        dispatch(weatherActions.changeError());
+      }, 3000);
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
+  }, [error]);
   return (
     <div className="weather-detail">
       <img src={Image} alt="" className="weather-detail__background" />
@@ -19,6 +35,9 @@ const WeatherDetail = () => {
       {currentWeather && !loading ? (
         <div className="weather-detail__wrapper">
           <div className="weather-detail__weather">
+            <div className="weather-detail__weather-name">
+              {weatherList.city.country}
+            </div>
             <div className="weather-detail__weather-name">
               {weatherList.city.name}
             </div>
@@ -66,6 +85,9 @@ const WeatherDetail = () => {
           <Icons name={"loading"} />
         </div>
       )}
+      <div className={`alert ${error != "" ? "active" : ""}`}>
+        <Alert severity="error">{error}</Alert>
+      </div>
     </div>
   );
 };

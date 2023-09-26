@@ -1,5 +1,12 @@
 .weather-detail__background {
   border-radius: 40px;
+  height: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 0;
+  }
 }
 
 .weather-detail__wrapper {
@@ -17,8 +24,10 @@
 }
 
 .weather-detail {
+  max-width: 100vw;
   width: fit-content;
-  height: fit-content;
+  height: 100vh;
+  max-height: 900px;
   margin: auto;
   position: relative;
   overflow: hidden;
@@ -99,5 +108,15 @@
       height: 25px;
       fill: #ebebf599;
     }
+  }
+}
+
+.alert {
+  position: absolute;
+  top: -100vh;
+  max-width: 100%;
+  transition: 0.3s;
+  &.active {
+    top: 50px;
   }
 }

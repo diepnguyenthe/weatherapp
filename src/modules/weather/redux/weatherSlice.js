@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   weather: null,
+  forecasts: null,
   currentWeather: null,
   isLoading: false,
   error: "",
@@ -17,16 +18,36 @@ export const weatherSlice = createSlice({
     weatherFetchSuccess: (state, action) => {
       state.isLoading = false;
       state.weather = action.payload;
+      state.error = "";
+    },
+    weatherFetchError: (state, action) => {
+      if (action.payload?.data?.message) {
+        state.error = action.payload?.data?.message;
+      } else {
+        state.error = "Fail to fetch data";
+      }
+      state.isLoading = false;
+    },
+
+    forecastFetchAction: (state) => {
+      state.isLoading = true;
+    },
+    forecastFetchSuccess: (state, action) => {
+      state.isLoading = false;
+      state.forecasts = action.payload;
       state.currentWeather = action.payload.list[0];
       state.error = "";
     },
-    weatherFetchError: (state) => {
+    forecastFetchError: (state) => {
       state.error = "Fail to fetch data";
       state.isLoading = false;
     },
 
     changeCurrentWeather: (state, action) => {
       state.currentWeather = action.payload;
+    },
+    changeError: (state) => {
+      state.error = "";
     },
   },
 });
